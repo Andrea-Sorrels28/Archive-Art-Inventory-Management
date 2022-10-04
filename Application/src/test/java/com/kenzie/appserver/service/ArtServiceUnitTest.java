@@ -178,5 +178,51 @@ public class ArtServiceUnitTest {
         //Then
         verify(artRepository, times(1)).existsById(artRecord.getArtId());
     }
+
+    @Test
+    void findByLocationId() {
+        //Given
+        ArtRecord artRecord = new ArtRecord();
+        artRecord.setArtId("randomArt");
+        artRecord.setArtistName("Joe");
+        artRecord.setHumiditySensitive(true);
+        artRecord.setName("VanLouis");
+        artRecord.setLocationId("Shreveport, LA");
+        artRecord.setType("oil");
+        artRecord.setTimeStamp("09/08/1994");
+
+        ArtRecord artRecord1 = new ArtRecord();
+        artRecord1.setArtId("randomArt1");
+        artRecord1.setArtistName("Jimmy");
+        artRecord1.setHumiditySensitive(false);
+        artRecord1.setName("Chooch Da Arteest");
+        artRecord1.setLocationId("Shreveport, LA");
+        artRecord1.setType("acrylic");
+        artRecord1.setTimeStamp("09/21/2022");
+        artRecord1.setPrice(1000.00);
+
+        List<ArtRecord> artRecordList = new ArrayList<>();
+        artRecordList.add(artRecord);
+        artRecordList.add(artRecord1);
+
+        when(artRepository.findByLocationId(artRecord.getLocationId())).thenReturn(artRecordList);
+
+        //When
+        List<Art> artList = artService.findByLocationId(artRecord.getLocationId());
+
+        //Then
+        Assertions.assertNotNull(artList, "The list is not empty");
+        Assertions.assertEquals(2, artList.size(), "the art list size is 2");
+
+        for (Art art : artList) {
+            if (art.getArtId() == artRecord.getArtId()) {
+                Assertions.assertEquals(artRecord.getLocationId(), art.getLocationId(), "The art location matches");
+            } else if (art.getArtId() == artRecord1.getArtId()) {
+                Assertions.assertEquals(artRecord1.getLocationId(), art.getLocationId(), "The art location matches");
+            } else {
+                Assertions.assertTrue(false, "Art returned that was not in the records!");
+            }
+        }
+    }
 }
 
