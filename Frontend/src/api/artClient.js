@@ -1,15 +1,19 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
-
 /**
- * Client to call the ExampleService.
+ * Client to call the MusicPlaylistService.
+ *
+ * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
+ * which we could avoid using inheritance or Mixins.
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#Mix-ins
+ * https://javascript.info/mixins
  */
 export default class ArtClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getArt', 'addArt', 'getAllArt'];
+        const methodsToBind = ['clientLoaded', 'getAllArt', 'getArtByArtId', 'addArt', 'getStorageUnitByUnitId', 'addStorageUnit', 'purchaseTicket'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -26,21 +30,41 @@ export default class ArtClient extends BaseClass {
         }
     }
 
-    async getArt(artId, errorCallback) {
+    /**
+     * Get all concerts
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns an array of concerts
+     */
+    async getAllArt(errorCallback) {
         try {
-            const response = await this.client.get(`/art/${artId}`);
+            const response = await this.client.get(`/Art`);
             return response.data;
-        } catch (error) {
-            this.handleError("getArt", error, errorCallback)
+        } catch(error) {
+            this.handleError("getAllArt", error, errorCallback);
         }
     }
 
-    async addArt(artId, name, artistName, errorCallback) {
+    /**
+     * Gets the concert for the given ID.
+     * @param artId Unique identifier for a concert
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns The concert
+     */
+    async getArtByArtId(artId, errorCallback) {
         try {
-            const response = await this.client.post(`/art`, {
-                "artId": artId,
-                "name": name,
-                "artistName": artistName
+            const response = await this.client.get(`/Art/${artId}`);
+            return response.data.art;
+        } catch (error) {
+            this.handleError("getArtByArtId", error, errorCallback)
+        }
+    }
+
+    async addArt(name, artistName, locationId, errorCallback) {
+        try {
+            const response = await this.client.post(`Art`, {
+                name: name,
+                artistName: artistName,
+                locationId: locationId
             });
             return response.data;
         } catch (error) {
@@ -48,12 +72,39 @@ export default class ArtClient extends BaseClass {
         }
     }
 
-    async getAllArt(errorCallback){
+    /**
+     *
+     * @param storageUnitId
+     * @param errorCallback
+     * @returns {Promise<*>}
+     */
+    async getStorageUnitByUnitId(storageUnitId, errorCallback) {
         try {
-            const response = await this.client.get(`/art/all`);
+            const response = await this.client.get(`StorageUnit/${storageUnitId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getAllArt", error, errorCallback)
+            this.handleError("getStorageUnitByUnitId", error, errorCallback);
+        }
+    }
+
+    /**
+     * Add a song to a playlist.
+     * @param artType The id of the playlist to add a song to.
+     * @param humiditySensitive The asin that uniquely identifies the album.
+     * @param amountOfArtStored The track number of the song on the album.
+     * @param errorCallback
+     * @returns The list of songs on a playlist.
+     */
+    async addStorageUnit(artType, humiditySensitive, amountOfArtStored, errorCallback) {
+        try {
+            const response = await this.client.post(`Art`, {
+                artType: artType,
+                humiditySensitive: humiditySensitive,
+                amountOfArtStored: amountOfArtStored
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("addStorageUnit", error, errorCallback);
         }
     }
 
