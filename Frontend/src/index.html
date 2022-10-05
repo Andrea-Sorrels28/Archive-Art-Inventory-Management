@@ -1,40 +1,135 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="examplePage.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="artPage.js"></script>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" type="text/css" href="css/style.css">-->
+    <link href="css/custom.css" rel="stylesheet" />
+    <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+            rel="stylesheet"
+            type="text/css"
+    />
 </head>
-<body class="background">
-    <header class="header" id="header">
-        <div class="site-title">
-            <a class="header_home" href="index.html">Example App</a>
+<body>
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button
+                    type="button"
+                    class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false"
+            >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Art Storage</a>
         </div>
-    </header>
-    <div class="card">
-        <h2>Create Example</h2>
-        <form class="card-content" id="create-form">
-            <p class="form-field">
-                <label>Name</label>
-                <input type="text" required class="validated-field" id="create-name-field">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">About</a></li>
+                <li class="dropdown">
+                    <a
+                            href="#"
+                            class="dropdown-toggle"
+                            data-toggle="dropdown"
+                            role="button"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                    >Services<span class="caret"></span
+                    ></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Artwork</a></li>
+                        <li><a href="#">Storage Units</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="jumbotron">
+    <div class="container">
+        <h1>The easiest way to store your art safely.</h1>
+        <p>
+            With leading technology trusted by industry professionals, this is the only
+            place you need to be to access your work. When choosing a company, let us relieve
+            your art block.
+        </p>
+        <br />
+        <p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Artwork »</a>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Storage Units »</a>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <section class="call-to-action">
+    <div class="row">
+        <div class="col-md-4">
+            <span class="glyphicon glyphicon-cloud glyphicon-large" aria-hidden="true"></span>
+            <h3>Access anywhere, anytime.</h3>
+            <p>
+                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus
+                commodo, tortor mauris condimentum nibh.
             </p>
-            <button type="submit">Create</button>
-        </form>
-    </div>
-    <div class="card">
-        <h2>Get By ID</h2>
-        <form class="card-content" id="get-by-id-form">
-            <p class="form-field">
-                <label>ID</label>
-                <input type="text" required class="validated-field" id="id-field">
+        </div>
+        <div class="col-md-4">
+            <span class="glyphicon glyphicon-floppy-disk glyphicon-large" aria-hidden="true"></span>
+            <h3>Secure Locations</h3>
+            <p>
+                Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Lorem ipsum
+                dolor.
             </p>
-            <button type="submit">Get</button>
-        </form>
+        </div>
+        <div class="col-md-4">
+            <span class="glyphicon glyphicon-console glyphicon-large" aria-hidden="true"></span>
+            <h3>Climate Controlled</h3>
+            <p>
+                Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus
+                commodo, tortor mauris condimentum nibh.
+            </p>
+        </div>
     </div>
-    <div class="card" id="result">
-        <h2>Result:</h2>
-        <p id="result-info"></p>
+    </section>
+</div>
+<!--<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="index.html">Example App</a>
     </div>
-
+</header>
+<div class="card">
+    <h2>Create Example</h2>
+    <form class="card-content" id="create-form">
+        <p class="form-field">
+            <label>Name</label>
+            <input type="text" required class="validated-field" id="create-name-field">
+        </p>
+        <button type="submit">Create</button>
+    </form>
+</div>-->
+<!--<div class="card">
+    <h2>Get By ID</h2>
+    <form class="card-content" id="get-by-id-form">
+        <p class="form-field">
+            <label>ID</label>
+            <input type="text" required class="validated-field" id="id-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card" id="result">
+    <h2>Result:</h2>
+    <p id="result-info"></p>
+</div>-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </body>
 </html>
