@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Title</title>
+</head>
+<body class="background">
+    <header class="header" id="header">
+        <div class="site-title">
+            <a class="header_home" href="storageUnit.html">Storage Unit Dashboard</a>
+        </div>
+    </header>
+    <div class="card">
+        <h2>Create a Storage Unit</h2>
+        <form class="card-content" id="create-storage-unit-form">
+            <p class="form-field">
+                <label>What is the type of art that will be stored?</label>
+                <input type="text" required class="validated-field" id="art-type" placeholder="art type..." autofocus>
+            </p>
+            <label for="humidity-sensitive"></label><select id="humidity-sensitive" name="humidity sensitive" class="form-control" required >
+                <!--the "value" below here-->
+                <option disabled selected value>Is this unit humidity sensitive?</option>
+                <option value="yes">true</option>
+                <option value="no">false</option>
+            </select>
+            <p class="form-field">
+                <label>What is the amount of art that will be stored?</label>
+                <input type="number" required class="validated-field" id="amount-of-art-stored" placeholder="0">
+            </p>
+            <button type="submit" id="create-storage-unit">Create</button>
+        </form>
+    </div>
+</body>
+</html>
