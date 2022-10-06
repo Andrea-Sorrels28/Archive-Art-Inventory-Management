@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="storageUnitPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
     <title>Title</title>
 </head>
 <body class="background">
@@ -16,19 +17,17 @@
             <p class="form-field">
                 <label>What is the type of art that will be stored?</label>
                 <input type="text" required class="validated-field" id="art-type" placeholder="art type..." autofocus>
-            </p>
-            <label for="humidity-sensitive"></label><select id="humidity-sensitive" name="humidity sensitive" class="form-control" required >
-                <!--the "value" below here-->
-                <option disabled selected value>Is this unit humidity sensitive?</option>
-                <option value="yes">true</option>
-                <option value="no">false</option>
-            </select>
-            <p class="form-field">
+                <label>Is this unit humidity sensitive?</label>
+                <input type="text" required class="validated-field" id="humidity-sensitive" placeholder="(true / false)" autofocus>
                 <label>What is the amount of art that will be stored?</label>
                 <input type="number" required class="validated-field" id="amount-of-art-stored" placeholder="0">
             </p>
             <button type="submit" id="create-storage-unit">Create</button>
         </form>
+    </div>
+    <div class="card" id="result">
+        <h2>Result:</h2>
+        <p id="result-info"></p>
     </div>
 </body>
 </html>
