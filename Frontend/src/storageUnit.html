@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="storageUnitPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <title>Title</title>
+</head>
+<body class="background">
+    <header class="header" id="header">
+        <div class="site-title">
+            <a class="header_home" href="storageUnit.html">Storage Unit Dashboard</a>
+        </div>
+    </header>
+    <div class="card">
+        <h2>Create a Storage Unit</h2>
+        <form class="card-content" id="create-storage-unit-form">
+            <p class="form-field">
+                <label>What is the type of art that will be stored?</label>
+                <input type="text" required class="validated-field" id="art-type" placeholder="art type..." autofocus>
+                <label>Is this unit humidity sensitive?</label>
+                <input type="text" required class="validated-field" id="humidity-sensitive" placeholder="(true / false)" autofocus>
+                <label>What is the amount of art that will be stored?</label>
+                <input type="number" required class="validated-field" id="amount-of-art-stored" placeholder="0">
+            </p>
+            <button type="submit" id="create-storage-unit">Create</button>
+        </form>
+    </div>
+    <div class="card" id="result">
+        <h2>Result:</h2>
+        <p id="result-info"></p>
+    </div>
+</body>
+</html>
