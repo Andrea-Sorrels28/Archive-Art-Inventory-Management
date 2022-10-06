@@ -8,8 +8,8 @@ module.exports = {
     usedExports: true
   },
   entry: {
-    storageUnitPage: path.resolve(__dirname, 'src', 'pages', 'storageUnitPage.js')
-    artPage: path.resolve(__dirname, 'src', 'pages', 'artPage.js'),
+    storageUnitPage: path.resolve(__dirname, 'src', 'pages', 'storageUnitPage.js'),
+    artPage: path.resolve(__dirname, 'src', 'pages', 'artPage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
