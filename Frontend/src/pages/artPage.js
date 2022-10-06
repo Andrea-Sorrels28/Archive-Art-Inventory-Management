@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ArtClient from "../api/artClient";
+import artClient from "../api/artClient";
 
 class ArtPage extends BaseClass {
 
@@ -15,7 +15,7 @@ class ArtPage extends BaseClass {
      */
     async mount() {
         document.getElementById('create-comment-form').addEventListener('submit', this.onCreate);
-        this.client = new CommentClient();
+        this.client = new artClient();
 
         this.dataStore.addChangeListener(this.renderComments)
         this.onGetComments()
@@ -23,13 +23,13 @@ class ArtPage extends BaseClass {
 
     /** Render Methods -----------------------------------------------------------------------------------------------*/
 
-    async renderComments() {
+    async renderArt() {
         let resultArea = document.getElementById("result-info");
 
         const comments = this.dataStore.get("comments");
 
         let html = "<ul>";
-        for (let comment of comments){
+        for (let art of allArt){
             html +=  '<li>' +
                 `<h3>title: ` + comment.title + `</h3>` +
                 `<h4>owner: ` + comment.owner + `</h4>` +
@@ -47,8 +47,8 @@ class ArtPage extends BaseClass {
 
     /** Event Handlers -----------------------------------------------------------------------------------------------*/
 
-    async onGetComments() {
-        let result = await this.client.getAllComments(this.errorHandler);
+    async onGetArt() {
+        let result = await this.client.getAllArt(this.errorHandler);
         this.dataStore.set("comments", result);
     }
 
@@ -67,7 +67,7 @@ class ArtPage extends BaseClass {
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
-        this.onGetComments()
+        this.onGetArt()
     }
 }
 
@@ -75,8 +75,8 @@ class ArtPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const commentPage = new CommentPage();
-    commentPage.mount();
+    const artPage = new ArtPage();
+    artPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
