@@ -48,7 +48,7 @@ public class StorageUnitController {
         return ResponseEntity.created(URI.create("/storageUnit/" + storageUnitResponse.getUnitId())).body(storageUnitResponse);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<StorageUnitResponse>> getAllUnits() {
         List<StorageUnit> storageUnits = storageUnitService.findAllStorageUnits();
         if (storageUnits == null || storageUnits.isEmpty()) {
