@@ -23,13 +23,13 @@ class ArtPage extends BaseClass {
 
     /** Render Methods -----------------------------------------------------------------------------------------------*/
 
-    async renderComments() {
+    async renderArt() {
         let resultArea = document.getElementById("result-info");
 
         const comments = this.dataStore.get("comments");
 
         let html = "<ul>";
-        for (let comment of comments){
+        for (let art of allArt){
             html +=  '<li>' +
                 `<h3>title: ` + comment.title + `</h3>` +
                 `<h4>owner: ` + comment.owner + `</h4>` +
