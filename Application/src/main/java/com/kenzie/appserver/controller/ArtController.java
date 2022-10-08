@@ -6,6 +6,7 @@ import com.kenzie.appserver.service.model.Art;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ArtController {
                 artCreateRequest.getLocationId(),
                 artCreateRequest.getType(),
                 artCreateRequest.isHumiditySensitive(),
-                artCreateRequest.getTimeStamp().toString(),
+                LocalDate.now().toString(),
                 artCreateRequest.getPrice()
         );
 
