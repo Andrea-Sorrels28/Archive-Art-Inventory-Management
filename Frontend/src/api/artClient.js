@@ -13,7 +13,7 @@ export default class ArtClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAllArt', 'getArtByArtId', 'addArt', 'getStorageUnitByUnitId', 'addStorageUnit', 'purchaseTicket'];
+        const methodsToBind = ['clientLoaded', 'getAllArt', 'getArtByArtId', 'addArt'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -53,18 +53,21 @@ export default class ArtClient extends BaseClass {
     async getArtByArtId(artId, errorCallback) {
         try {
             const response = await this.client.get(`/Art/${artId}`);
-            return response.data.art;
+            return response.data;
         } catch (error) {
             this.handleError("getArtByArtId", error, errorCallback)
         }
     }
 
-    async addArt(name, artistName, locationId, errorCallback) {
+    async addArt(name, artistName, medium, humiditySensitive, locationId, price, errorCallback) {
         try {
             const response = await this.client.post(`Art`, {
-                name: name,
-                artistName: artistName,
-                locationId: locationId
+                "name": name,
+                "artistName" : artistName,
+                "type" : medium,
+                "humiditySensitive" : Boolean(humiditySensitive),
+                "locationId" : locationId,
+                "price" : price,
             });
             return response.data;
         } catch (error) {
@@ -72,23 +75,8 @@ export default class ArtClient extends BaseClass {
         }
     }
 
-    /**
-     *
-     * @param storageUnitId
-     * @param errorCallback
-     * @returns {Promise<*>}
-     */
-    async getStorageUnitByUnitId(storageUnitId, errorCallback) {
-        try {
-            const response = await this.client.get(`StorageUnit/${storageUnitId}`);
-            return response.data;
-        } catch (error) {
-            this.handleError("getStorageUnitByUnitId", error, errorCallback);
-        }
-    }
 
     /**
-     * Add a song to a playlist.
      * @param artType The id of the playlist to add a song to.
      * @param humiditySensitive The asin that uniquely identifies the album.
      * @param amountOfArtStored The track number of the song on the album.

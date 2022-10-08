@@ -31,26 +31,34 @@
     <form class="card-content" id="add-art-form">
         <p class="form-field">
             <label>Name of the piece?</label>
-            <input type="text" required class="validated-field" id="art-name" placeholder="artwork name..." autofocus>
+            <input type="text" required class="validated-field" id="name" placeholder="artwork name..." autofocus>
         </p>
         <p class="form-field">
             <label>What is the name of the artist?</label>
-            <input type="artistName" required id="artistName" class=" validated-field" id="artistName" placeholder="artist name">
+            <input type="text" required id="artistName" class=" validated-field" id="artistName" placeholder="artist name">
         </p>
         <p class="form-field">
             <label>What medium(s) were used?</label>
-            <input type="type" required class="validated-field" id="type" placeholder="medium">
+            <input type="text" required class="validated-field" id="type" placeholder="medium">
         </p>
         <p class="form-field">
             <label>Is it sensitive to humidity?</label>
-            <input type="humiditySensitive" required class="validated-field" id="humiditySensitive" placeholder="yes/no">
+            <input type="text" required class="validated-field" id="humiditySensitive" placeholder="yes/no">
+        </p>
+        <p class="form-field">
+            <label>Where is this stored?</label>
+            <input type="text" required class="validated-field" id="locationId" placeholder="locationId">
         </p>
         <p class="form-field">
             <label>What is the value?</label>
-            <input type="price" required class="validated-field" id="price" placeholder="price">
+            <input type="text" required class="validated-field" id="price" placeholder="price">
         </p>
         <button type="submit" id="add-art">Add</button>
     </form>
+</div>
+<div class="card" id="result">
+    <h2>Result:</h2>
+    <p id="result-info"></p>
 </div>
 <div id="art-list"></div>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
