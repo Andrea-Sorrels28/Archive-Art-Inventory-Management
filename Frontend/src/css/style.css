@@ -2,7 +2,7 @@
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
     --primary-color: #3e4649;
     --secondary-color: #f7f7f7;
-    --error-color: rgba(194, 0, 0, 0.71);
+    --error-color: rgb(39, 169, 103);
     font-family: 'Montserrat', sans-serif;
 }
 

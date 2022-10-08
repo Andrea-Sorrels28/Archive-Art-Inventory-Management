@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <script type="text/javascript" src="storageUnitPage.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <title>Title</title>
 </head>
 <body class="background">
     <header class="header" id="header">
         <div class="site-title">
             <a class="header_home" href="storageUnit.html">Storage Unit Dashboard</a>
+            <a class="header_nav_link button" href="index.html">Main Page</a>
         </div>
     </header>
     <div class="card">
@@ -23,6 +24,22 @@
                 <input type="number" required class="validated-field" id="amount-of-art-stored" placeholder="0">
             </p>
             <button type="submit" id="create-storage-unit">Create</button>
+        </form>
+    </div>
+    <div class="card">
+        <h2>Get a storage unit by unit ID</h2>
+        <form class="card-content" id="get-by-id-form">
+            <p class="form-field">
+                <label>What is the storage unit ID?</label>
+                <input type="text" required class="validated-field" id="unit-id" placeholder="unit ID..." autofocus>
+            </p>
+            <button type="submit" id="get-by-id">Get</button>
+        </form>
+    </div>
+    <div class="card">
+        <h2>Get all storage units</h2>
+        <form class="card-content" id="get-all-form">
+            <button type="submit" id="get-all">Get</button>
         </form>
     </div>
     <div class="card" id="result">

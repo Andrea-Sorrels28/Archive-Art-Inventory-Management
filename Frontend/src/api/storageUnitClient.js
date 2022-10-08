@@ -4,7 +4,7 @@ import axios from "axios";
 export default class storageUnitClient extends BaseClass {
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'createStorageUnit'];
+        const methodsToBind = ['clientLoaded', 'createStorageUnit', 'getById', 'getAllUnits', 'deletedById'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,6 +31,33 @@ export default class storageUnitClient extends BaseClass {
             return response.data;
         } catch (error) {
             this.handleError("createStorageUnit", error, errorCallback);
+        }
+    }
+
+    async getById(unitId, errorCallback) {
+        try {
+            const response = await this.client.get(`/storageUnit/${unitId}`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getById", error, errorCallback)
+        }
+    }
+
+    async getAllUnits(errorCallback) {
+        try {
+            const response = await this.client.get(`/storageUnit/all`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getAllUnits", error, errorCallback);
+        }
+    }
+
+    async deletedById(unitId, errorCallback) {
+        try {
+            const response = await this.client.delete(`/storageUnit/${unitId}`);
+            return response.data;
+        } catch (error) {
+            this.errorHandler("deletedById", error, errorCallback)
         }
     }
 

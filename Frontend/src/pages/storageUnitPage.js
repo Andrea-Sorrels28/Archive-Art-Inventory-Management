@@ -6,32 +6,49 @@ class StorageUnitPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onCreateStorageUnit', 'renderStorageUnits'], this);
+        this.bindClassMethods(['onCreateStorageUnit','onGetById','onGetAllUnits', 'onDeletedById', 'renderStorageUnits'], this);
         this.dataStore = new DataStore();
     }
 
     async mount() {
-        document.getElementById("create-storage-unit").addEventListener('submit', this.onCreateStorageUnit);
+        document.getElementById("create-storage-unit-form").addEventListener('submit', this.onCreateStorageUnit);
+        document.getElementById("get-by-id-form").addEventListener('submit', this.onGetById);
+        document.getElementById("get-all-form").addEventListener('submit', this.onGetAllUnits);
+
         this.client = new storageUnitClient();
 
         this.dataStore.addChangeListener(this.renderStorageUnits)
-
     }
+
     /** Render Methods -----------------------------------------------------------------------------------------------*/
     async renderStorageUnits() {
         let resultArea = document.getElementById("result-info");
 
         const storageUnit = this.dataStore.get("storageUnit");
+        const storageUnits = this.dataStore.get("storageUnits");
 
-        if (storageUnit) {
+        if(storageUnit) {
             resultArea.innerHTML = `
-                <div>ID: ${storageUnit.id}</div>
-                <div>ArtType: ${storageUnit.artType}</div>
-                <div>HumiditySensitive: ${storageUnit.humiditySensitive}</div>
-                <div>AmountOfArtStored: ${storageUnit.amountOfArtStored}</div>
-            `
+            <div>ID: ${storageUnit.unitId}</div>
+            <div>Art Type: ${storageUnit.artType}</div>
+            <div>Humidity Sensitive: ${storageUnit.humiditySensitive}</div>
+            <div>Amount Of Art Stored: ${storageUnit.amountOfArtStored}</div>
+         `
+        } else if (storageUnits) {
+            var myHtml = "<ul>";
+
+            for (let unit of storageUnits) {
+                myHtml += `
+                    <div>ID: ${unit.unitId}</div>
+                    <div>Art Type: ${unit.artType}</div>
+                    <div>Humidity Sensitive: ${unit.humiditySensitive}</div>
+                    <div>Amount Of Art Stored: ${unit.amountOfArtStored}</div>
+                    `;
+            }
+            myHtml += "</ul>";
+            resultArea.innerHTML = myHtml;
         } else {
-            resultArea.innerHTML = "No Storage Units";
+            resultArea.innerHTML = "No Storage Units!";
         }
     }
 
@@ -54,9 +71,44 @@ class StorageUnitPage extends BaseClass {
             this.errorHandler("Error creating!  Try again...");
         }
     }
+
+    async onGetById(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+        let id = document.getElementById("unit-id").value;
+        this.dataStore.set("storageUnit", null);
+
+        let result = await this.client.getById(id, this.errorHandler);
+        this.dataStore.set("storageUnit", result);
+        if (result) {
+            this.showMessage(`Got ${result.unitId}!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
+
+    async onGetAllUnits(event) {
+        event.preventDefault();
+
+        let result = await this.client.getAllUnits(this.errorHandler);
+        this.dataStore.set("storageUnits", result);
+    }
+
+    async onDeletedById(event) {
+        event.preventDefault();
+        let id = document.getElementById("unit-id").value;
+        let result = await this.client.deletedById(id, this.errorHandler);
+        if (result) {
+            this.showMessage(`Successfully deleted ${result.unitId}!`)
+        } else {
+            this.errorHandler("Error deleting!  Try again...");
+        }
+    }
+
 }
 
-const main = async  => {
+const main = async () => {
     const storageUnitPage = new StorageUnitPage();
     storageUnitPage.mount();
 };

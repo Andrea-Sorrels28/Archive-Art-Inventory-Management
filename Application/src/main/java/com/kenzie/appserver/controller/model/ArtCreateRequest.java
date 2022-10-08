@@ -27,10 +27,6 @@ public class ArtCreateRequest {
     @JsonProperty("humiditySensitive")
     boolean humiditySensitive;
 
-    @JsonFormat(shape =  JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @JsonProperty("timeStamp")
-    LocalDate timeStamp;
-
     @JsonFormat
     @JsonProperty("price")
     Double price;
@@ -73,14 +69,6 @@ public class ArtCreateRequest {
 
     public void setHumiditySensitive(boolean humiditySensitive) {
         this.humiditySensitive = humiditySensitive;
-    }
-
-    public LocalDate getTimeStamp() {
-        return timeStamp;
-    }
-
-    public void setTimeStamp(LocalDate timeStamp) {
-        this.timeStamp = timeStamp;
     }
 
     public Double getPrice() {
