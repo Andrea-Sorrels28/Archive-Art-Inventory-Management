@@ -12,7 +12,7 @@ import java.util.List;
 import static java.util.UUID.randomUUID;
 
 @RestController
-@RequestMapping("/art")
+@RequestMapping("/Art")
 public class ArtController {
 
     private ArtService artService;
@@ -48,7 +48,7 @@ public class ArtController {
 
         ArtResponse response = artResponse(art);
 
-        return ResponseEntity.created(URI.create("/art/" + response.getArtId())).body(response);
+        return ResponseEntity.created(URI.create("/Art/" + response.getArtId())).body(response);
     }
 
     @GetMapping

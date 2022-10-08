@@ -1,73 +1,85 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import artClient from "../api/artClient";
+import ExampleClient from "../api/exampleClient";
+import ArtClient from "../api/artClient";
 
+/**
+ * Logic needed for the view playlist page of the website.
+ */
 class ArtPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGetArt', 'onAddArt', 'renderArt'], this);
+        this.bindClassMethods(['onGet', 'onCreate', 'renderExample'], this);
         this.dataStore = new DataStore();
     }
 
     /**
-     * Once the page has loaded, set up the event handlers
+     * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('create-comment-form').addEventListener('submit', this.onCreate);
-        this.client = new artClient();
+        document.getElementById('add-art-form').addEventListener('submit', this.onGet);
+        document.getElementById('add-art-form').addEventListener('submit', this.onCreate);
+        this.client = new ArtClient();
 
-        this.dataStore.addChangeListener(this.renderComments)
-        this.onGetComments()
+        this.dataStore.addChangeListener(this.renderExample)
     }
 
-    /** Render Methods -----------------------------------------------------------------------------------------------*/
+    // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderArt() {
+    async renderExample() {
         let resultArea = document.getElementById("result-info");
 
-        const comments = this.dataStore.get("comments");
+        const art = this.dataStore.get("art");
 
-        let html = "<ul>";
-        for (let art of allArt){
-            html +=  '<li>' +
-                `<h3>title: ` + comment.title + `</h3>` +
-                `<h4>owner: ` + comment.owner + `</h4>` +
-                `<p>content: ` + comment.content + `</p>` +
-                '</li>';
-        }
-        html += "</ul>"
-
-        if (comments){
-            resultArea.innerHTML = html;
+        if (art) {
+            resultArea.innerHTML = `
+                <div>ID: ${art.id}</div>
+                <div>Name: ${art.name}</div>
+            `
         } else {
-            resultArea.innerHTML = "No Comments";
+            resultArea.innerHTML = "No Item";
         }
     }
 
-    /** Event Handlers -----------------------------------------------------------------------------------------------*/
+    // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async onGetArt() {
-        let result = await this.client.getAllArt(this.errorHandler);
-        this.dataStore.set("comments", result);
+    async onGet(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+        let artId = document.getElementById("artId-field").value;
+        this.dataStore.set("art", null);
+
+        let result = await this.client.getArtByArtId(artId, this.errorHandler);
+        this.dataStore.set("art", result);
+        if (result) {
+            this.showMessage(`Got ${result.name}!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
     }
 
     async onCreate(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
+        this.dataStore.set("Art", null);
 
-        let owner = document.getElementById("create-comment-owner").value;
-        let title = document.getElementById("create-comment-title").value;
-        let content = document.getElementById("create-comment-content").value;
+        let name = document.getElementById("name").value;
+        let artistName = document.getElementById("artistName").value;
+        let type = document.getElementById("type").value;
+        let humiditySensitive = document.getElementById("humiditySensitive").value;
+        let locationId = document.getElementById("locationId").value;
+        let price = document.getElementById("price").value;
 
-        const createdExample = await this.client.createComment(content, owner, title, this.errorHandler);
+        const createdExample = await this.client.addArt(name, artistName, type, humiditySensitive, locationId, price, this.errorHandler);
+        this.dataStore.set("Art", createdExample);
 
         if (createdExample) {
-            this.showMessage("Posted a comment!")
+            this.showMessage(` ${createdExample.name}!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
-        this.onGetArt()
     }
 }
 
@@ -75,8 +87,8 @@ class ArtPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const artPage = new ArtPage();
-    artPage.mount();
+    const examplePage = new ArtPage();
+    examplePage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
