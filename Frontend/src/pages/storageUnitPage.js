@@ -6,7 +6,7 @@ class StorageUnitPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onCreateStorageUnit','onGetById','onGetAllUnits', 'renderStorageUnits'], this);
+        this.bindClassMethods(['onCreateStorageUnit','onGetById','onGetAllUnits', 'onDeletedById', 'renderStorageUnits'], this);
         this.dataStore = new DataStore();
     }
 
@@ -25,21 +25,30 @@ class StorageUnitPage extends BaseClass {
         let resultArea = document.getElementById("result-info");
 
         const storageUnit = this.dataStore.get("storageUnit");
-        var myHtml = "<ul>";
+        const storageUnits = this.dataStore.get("storageUnits");
 
-        if (storageUnit) {
-            for (let unit of storageUnit) {
+        if(storageUnit) {
+            resultArea.innerHTML = `
+            <div>ID: ${storageUnit.unitId}</div>
+            <div>Art Type: ${storageUnit.artType}</div>
+            <div>Humidity Sensitive: ${storageUnit.humiditySensitive}</div>
+            <div>Amount Of Art Stored: ${storageUnit.amountOfArtStored}</div>
+         `
+        } else if (storageUnits) {
+            var myHtml = "<ul>";
+
+            for (let unit of storageUnits) {
                 myHtml += `
-                    <div>ID: ${storageUnit.unitId}</div>
-                    <div>Art Type: ${storageUnit.artType}</div>
-                    <div>Humidity Sensitive: ${storageUnit.humiditySensitive}</div>
-                    <div>Amount Of Art Stored: ${storageUnit.amountOfArtStored}</div>
-                `
+                    <div>ID: ${unit.unitId}</div>
+                    <div>Art Type: ${unit.artType}</div>
+                    <div>Humidity Sensitive: ${unit.humiditySensitive}</div>
+                    <div>Amount Of Art Stored: ${unit.amountOfArtStored}</div>
+                    `;
             }
             myHtml += "</ul>";
             resultArea.innerHTML = myHtml;
         } else {
-            resultArea.innerHTML = "No Storage Units";
+            resultArea.innerHTML = "No Storage Units!";
         }
     }
 
@@ -83,7 +92,18 @@ class StorageUnitPage extends BaseClass {
         event.preventDefault();
 
         let result = await this.client.getAllUnits(this.errorHandler);
-        this.dataStore.set("storageUnit", result);
+        this.dataStore.set("storageUnits", result);
+    }
+
+    async onDeletedById(event) {
+        event.preventDefault();
+        let id = document.getElementById("unit-id").value;
+        let result = await this.client.deletedById(id, this.errorHandler);
+        if (result) {
+            this.showMessage(`Successfully deleted ${result.unitId}!`)
+        } else {
+            this.errorHandler("Error deleting!  Try again...");
+        }
     }
 
 }
