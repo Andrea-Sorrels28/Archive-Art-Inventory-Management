@@ -37,6 +37,11 @@ module.exports = {
       filename: 'storageUnit.html',
       inject: false
     }),
+    new HtmlWebpackPlugin({
+      template: './src/artwork.html',
+      filename: 'artwork.html',
+      inject: false
+    }),
     new CopyPlugin({
       patterns: [
         {

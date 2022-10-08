@@ -59,12 +59,12 @@ export default class ArtClient extends BaseClass {
         }
     }
 
-    async addArt(name, artistName, medium, humiditySensitive, locationId, price, errorCallback) {
+    async addArt(name, artistName, type, humiditySensitive, locationId, price, errorCallback) {
         try {
-            const response = await this.client.post(`Art`, {
+            const response = await this.client.post(`/Art`, {
                 "name": name,
                 "artistName" : artistName,
-                "type" : medium,
+                "type" : type,
                 "humiditySensitive" : Boolean(humiditySensitive),
                 "locationId" : locationId,
                 "price" : price,
