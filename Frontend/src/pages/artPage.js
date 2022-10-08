@@ -18,27 +18,50 @@ class ArtPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('add-art-form').addEventListener('submit', this.onGet);
+        document.getElementById('get-art-form').addEventListener('submit', this.onGet);
         document.getElementById('add-art-form').addEventListener('submit', this.onCreate);
         this.client = new ArtClient();
 
-        this.dataStore.addChangeListener(this.renderExample)
+        this.dataStore.addChangeListener(this.renderArt)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderExample() {
-        let resultArea = document.getElementById("result-info");
+    async renderArt() {
+        let resultAreaArt = document.getElementById("result-info");
 
-        const art = this.dataStore.get("art");
+        const art = this.dataStore.get("Art");
+        const allArt = this.dataStore.get("allArt");
 
-        if (art) {
-            resultArea.innerHTML = `
-                <div>ID: ${art.id}</div>
-                <div>Name: ${art.name}</div>
-            `
+        if(art) {
+            resultAreaArt.innerHTML = `
+            <div>ID: ${art.artId}</div>
+                    <div>Name: ${art.name}</div>
+                    <div>Artist Name: ${art.artistName}</div>
+                    <div>Type: ${art.type}</div>
+                    <div>Humidity Sensitive: ${art.humiditySensitive}</div>
+                    <div>Location ID: ${art.locationId}</div>
+                    <div>Price: ${art.price}</div>
+         `
+        } else if (allArt) {
+            var myHtml = "<ul>";
+
+            for (let unit of allArt) {
+                myHtml += `
+                    <div>ID: ${unit.artId}</div>
+                    <div>Name: ${unit.name}</div>
+                    <div>Artist Name: ${unit.artistName}</div>
+                    <div>Type: ${unit.type}</div>
+                    <div>Humidity Sensitive: ${unit.humiditySensitive}</div>
+                    <div>Location ID: ${unit.locationId}</div>
+                    <div>Price: ${unit.price}</div>
+                    
+                    `;
+            }
+            myHtml += "</ul>";
+            resultAreaArt.innerHTML = myHtml;
         } else {
-            resultArea.innerHTML = "No Item";
+            resultAreaArt.innerHTML = "No Art!";
         }
     }
 
@@ -87,8 +110,8 @@ class ArtPage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    const examplePage = new ArtPage();
-    examplePage.mount();
+    const artPage = new ArtPage();
+    artPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);
