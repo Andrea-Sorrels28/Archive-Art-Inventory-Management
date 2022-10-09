@@ -19,8 +19,8 @@ class ArtPage extends BaseClass {
     async mount() {
         document.getElementById('get-art-form').addEventListener('submit', this.onGet);
         document.getElementById('add-art-form').addEventListener('submit', this.onCreate);
-        document.getElementById('get-art-form').addEventListener('submit', this.onGetAllArt);
-        document.getElementById('add-art-form').addEventListener('submit', this.onRemove);
+        document.getElementById('get-all-art-form').addEventListener('submit', this.onGetAllArt);
+        document.getElementById('remove-art-form').addEventListener('submit', this.onRemove);
 
         this.client = new ArtClient();
 
@@ -65,7 +65,7 @@ class ArtPage extends BaseClass {
         } else {
             resultAreaArt.innerHTML = "No Art!";
         }
-        document.getElementById("storageUnit-list").innerHTML = resultAreaArt.innerHTML;
+        document.getElementById("art-list").innerHTML = resultAreaArt.innerHTML;
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ class ArtPage extends BaseClass {
         let id = document.getElementById("artId").value;
         this.dataStore.set("Art", null);
 
-        let result = await this.client.getById(id, this.errorHandler);
+        let result = await this.client.getArtByArtId(id, this.errorHandler);
         this.dataStore.set("Art", result);
         if (result) {
             this.showMessage(`Got ${result.artId}!`)
@@ -110,7 +110,7 @@ class ArtPage extends BaseClass {
     async onGetAllArt(event) {
         event.preventDefault();
 
-        let result = await this.client.getAllUnits(this.errorHandler);
+        let result = await this.client.getAll(this.errorHandler);
         this.dataStore.set("allArt", result);
     }
 

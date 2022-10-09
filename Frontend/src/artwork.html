@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script type="text/javascript" src="./pages/artPage.js"></script>
+    <script type="text/javascript" src="artPage.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Title</title>
 </head>
 <body class="background">
 <header class="header" id="header">
@@ -11,7 +12,7 @@
         <a class="header_nav_link button" href="index.html">Main Page</a>
     </div>
 </header>
-<button type="button" id="refresh" style="margin-left: 20px;margin-top: 20px;">Refresh</button>
+<!--<button type="button" id="refresh" style="margin-left: 20px;margin-top: 20px;">Refresh</button>-->
 <div class="card">
     <h2>Add Artwork</h2>
     <p>Have art you want to store? Add it into our database!</p>
@@ -22,7 +23,7 @@
         </p>
         <p class="form-field">
             <label>What is the name of the artist?</label>
-            <input type="text" required id="artistName" class=" validated-field" id="artistName" placeholder="artist name">
+            <input type="text" required class="validated-field" id="artistName" placeholder="artist name">
         </p>
         <p class="form-field">
             <label>What medium(s) were used?</label>
@@ -43,12 +44,31 @@
         <button type="submit" id="add-art">Add</button>
     </form>
 </div>
+<div class="card">
+    <h2>Get art by ID</h2>
+    <form class="card-content" id="get-art-form">
+        <p class="form-field">
+            <label>What is the artwork ID?</label>
+            <input type="text" required class="validated-field" id="artId" placeholder="art ID..." autofocus>
+        </p>
+        <button type="submit" id="get-art">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Get all artwork</h2>
+    <form class="card-content" id="get-all-art-form">
+        <button type="submit" id="get-all-art">Get</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Remove art</h2>
+    <form class="card-content" id="remove-art-form">
+        <button type="submit" id="remove-art">Remove</button>
+    </form>
+</div>
 <div class="card" id="result">
     <h2>Result:</h2>
     <p id="result-info"></p>
 </div>
-<div id="art-list"></div>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>-->
 </body>
 </html>
