@@ -75,32 +75,6 @@ export default class ArtClient extends BaseClass {
         }
     }
 
-
-    /**
-     * @param artType The id of the playlist to add a song to.
-     * @param humiditySensitive The asin that uniquely identifies the album.
-     * @param amountOfArtStored The track number of the song on the album.
-     * @param errorCallback
-     * @returns The list of songs on a playlist.
-     */
-    async addStorageUnit(artType, humiditySensitive, amountOfArtStored, errorCallback) {
-        try {
-            const response = await this.client.post(`Art`, {
-                artType: artType,
-                humiditySensitive: humiditySensitive,
-                amountOfArtStored: amountOfArtStored
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("addStorageUnit", error, errorCallback);
-        }
-    }
-
-    /**
-     * Helper method to log the error and run any error functions.
-     * @param error The error received from the server.
-     * @param errorCallback (Optional) A function to execute if the call fails.
-     */
     handleError(method, error, errorCallback) {
         console.error(method + " failed - " + error);
         if (error.response.data.message !== undefined) {
