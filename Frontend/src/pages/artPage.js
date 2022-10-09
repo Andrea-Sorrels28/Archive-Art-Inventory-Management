@@ -17,10 +17,10 @@ class ArtPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        // document.getElementById('get-art-form').addEventListener('submit', this.onGet);
+        document.getElementById('get-art-form').addEventListener('submit', this.onGet);
         document.getElementById('add-art-form').addEventListener('submit', this.onCreate);
-        // document.getElementById('onRemove-art-form').addEventListener('submit', this.onGetAllArt);
-        // document.getElementById('add-art-form').addEventListener('submit', this.onRemove);
+        document.getElementById('get-all-art-form').addEventListener('submit', this.onGetAllArt);
+        document.getElementById('remove-art-form').addEventListener('submit', this.onRemove);
 
         this.client = new ArtClient();
 
@@ -110,7 +110,7 @@ class ArtPage extends BaseClass {
     async onGetAllArt(event) {
         event.preventDefault();
 
-        let result = await this.client.getAllUnits(this.errorHandler);
+        let result = await this.client.getAll(this.errorHandler);
         this.dataStore.set("allArt", result);
     }
 

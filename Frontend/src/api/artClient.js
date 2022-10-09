@@ -67,7 +67,7 @@ export default class ArtClient extends BaseClass {
                 "type" : type,
                 "humiditySensitive" : Boolean(humiditySensitive),
                 "locationId" : locationId,
-                "price" : price,
+                "price" : parseFloat(price),
             });
             return response.data;
         } catch (error) {
