@@ -74,6 +74,14 @@ export default class ArtClient extends BaseClass {
             this.handleError("addArt", error, errorCallback);
         }
     }
+    async deletedById(artId, errorCallback) {
+        try {
+            const response = await this.client.delete(`/Art/${artId}`);
+            return response.data;
+        } catch (error) {
+            this.errorHandler("deletedById", error, errorCallback)
+        }
+    }
 
     handleError(method, error, errorCallback) {
         console.error(method + " failed - " + error);
