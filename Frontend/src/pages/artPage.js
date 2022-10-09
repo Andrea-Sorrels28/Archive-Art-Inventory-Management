@@ -1,6 +1,5 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import ExampleClient from "../api/exampleClient";
 import ArtClient from "../api/artClient";
 
 /**
@@ -10,7 +9,7 @@ class ArtPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGet', 'onCreate', 'renderExample'], this);
+        this.bindClassMethods(['onGet', 'onCreate', 'onGetAllArt', 'onRemove', 'renderArt'], this);
         this.dataStore = new DataStore();
     }
 
@@ -20,6 +19,9 @@ class ArtPage extends BaseClass {
     async mount() {
         document.getElementById('get-art-form').addEventListener('submit', this.onGet);
         document.getElementById('add-art-form').addEventListener('submit', this.onCreate);
+        document.getElementById('get-art-form').addEventListener('submit', this.onGetAllArt);
+        document.getElementById('add-art-form').addEventListener('submit', this.onRemove);
+
         this.client = new ArtClient();
 
         this.dataStore.addChangeListener(this.renderArt)
@@ -63,25 +65,10 @@ class ArtPage extends BaseClass {
         } else {
             resultAreaArt.innerHTML = "No Art!";
         }
+        document.getElementById("storageUnit-list").innerHTML = resultAreaArt.innerHTML;
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
-
-    async onGet(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-
-        let artId = document.getElementById("artId-field").value;
-        this.dataStore.set("art", null);
-
-        let result = await this.client.getArtByArtId(artId, this.errorHandler);
-        this.dataStore.set("art", result);
-        if (result) {
-            this.showMessage(`Got ${result.name}!`)
-        } else {
-            this.errorHandler("Error doing GET!  Try again...");
-        }
-    }
 
     async onCreate(event) {
         // Prevent the page from refreshing on form submit
@@ -102,6 +89,39 @@ class ArtPage extends BaseClass {
             this.showMessage(` ${createdExample.name}!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
+        }
+    }
+    async onGet(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+        let id = document.getElementById("artId").value;
+        this.dataStore.set("Art", null);
+
+        let result = await this.client.getById(id, this.errorHandler);
+        this.dataStore.set("Art", result);
+        if (result) {
+            this.showMessage(`Got ${result.artId}!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
+
+    async onGetAllArt(event) {
+        event.preventDefault();
+
+        let result = await this.client.getAllUnits(this.errorHandler);
+        this.dataStore.set("allArt", result);
+    }
+
+    async onRemove(event) {
+        event.preventDefault();
+        let id = document.getElementById("Art").value;
+        let result = await this.client.deletedById(id, this.errorHandler);
+        if (result) {
+            this.showMessage(`Successfully deleted ${result.artId}!`)
+        } else {
+            this.errorHandler("Error deleting!  Try again...");
         }
     }
 }
