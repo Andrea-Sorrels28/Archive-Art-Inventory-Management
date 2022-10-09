@@ -14,6 +14,7 @@ class StorageUnitPage extends BaseClass {
         document.getElementById("create-storage-unit-form").addEventListener('submit', this.onCreateStorageUnit);
         document.getElementById("get-by-id-form").addEventListener('submit', this.onGetById);
         document.getElementById("get-all-form").addEventListener('submit', this.onGetAllUnits);
+        document.getElementById("delete-by-id-form").addEventListener('submit', this.onDeletedById);
 
         this.client = new storageUnitClient();
 
@@ -97,10 +98,12 @@ class StorageUnitPage extends BaseClass {
 
     async onDeletedById(event) {
         event.preventDefault();
-        let id = document.getElementById("unit-id").value;
+
+        let id = document.getElementById("delete-unit-id").value;
         let result = await this.client.deletedById(id, this.errorHandler);
-        if (result) {
-            this.showMessage(`Successfully deleted ${result.unitId}!`)
+        if (!result) {
+            this.dataStore.set("storageUnit", null)
+            this.showMessage(`Successfully deleted ${id}!`)
         } else {
             this.errorHandler("Error deleting!  Try again...");
         }
