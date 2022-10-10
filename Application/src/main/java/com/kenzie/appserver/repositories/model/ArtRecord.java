@@ -13,7 +13,7 @@ public class ArtRecord {
     String type;
     boolean humiditySensitive;
     String timeStamp;
-    Double price;
+    String price;
 
     @DynamoDBHashKey(attributeName = "ArtId")
     public String getArtId() {
@@ -79,11 +79,11 @@ public class ArtRecord {
     }
 
     @DynamoDBAttribute(attributeName = "Price")
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -94,7 +94,7 @@ public class ArtRecord {
                 ", name='" + name + '\'' +
                 ", artistName='" + artistName + '\'' +
                 ", locationId='" + locationId + '\'' +
-                ", type=" + type.toString() +
+                ", type=" + type +
                 ", humiditySensitive=" + humiditySensitive +
                 ", timeStamp='" + timeStamp + '\'' +
                 ", price='" + price + '\'' +

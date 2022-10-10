@@ -29,7 +29,7 @@ public class ArtCreateRequest {
 
     @JsonFormat
     @JsonProperty("price")
-    Double price;
+    String price;
 
     public String getName() {
         return name;
@@ -71,11 +71,11 @@ public class ArtCreateRequest {
         this.humiditySensitive = humiditySensitive;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

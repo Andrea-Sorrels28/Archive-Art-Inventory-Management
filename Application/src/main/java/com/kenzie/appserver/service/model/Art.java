@@ -8,10 +8,10 @@ public class Art {
     String type;
     boolean humiditySensitive;
     String timeStamp;
-    Double price;
+    String price;
 
     public Art(String artId, String name, String artistName, String locationId, String type,
-               boolean humiditySensitive, String timeStamp, Double price) {
+               boolean humiditySensitive, String timeStamp, String price) {
         this.artId = artId;
         this.name = name;
         this.artistName = artistName;
@@ -82,11 +82,11 @@ public class Art {
         this.timeStamp = timeStamp;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

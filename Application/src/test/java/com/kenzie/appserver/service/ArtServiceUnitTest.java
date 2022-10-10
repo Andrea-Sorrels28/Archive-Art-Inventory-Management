@@ -39,7 +39,7 @@ public class ArtServiceUnitTest {
         artRecord.setLocationId(randomUUID().toString());
         artRecord.setHumiditySensitive(true);
         artRecord.setTimeStamp("2022-03-10");
-        artRecord.setPrice(10.00);
+        artRecord.setPrice("10.00");
 
         when(artRepository.findById(artRecord.getArtId())).thenReturn(Optional.of(artRecord));
         // WHEN
@@ -73,7 +73,7 @@ public class ArtServiceUnitTest {
         artRecord1.setLocationId("Shreveport, LA");
         artRecord1.setType("acrylic");
         artRecord1.setTimeStamp("09/21/2022");
-        artRecord1.setPrice(1000.00);
+        artRecord1.setPrice("1000.00");
 
         List<ArtRecord> artRecordList = new ArrayList<>();
         artRecordList.add(artRecord);
@@ -156,7 +156,7 @@ public class ArtServiceUnitTest {
         String type = "oil";
         boolean humiditySensitive = true;
         String timeStamp = "now";
-        Double price = 0.0;
+        String price = "0.0";
 
         Art art = new Art(artId, name, artistName, locationId, type, humiditySensitive, timeStamp, price);
 
@@ -190,6 +190,7 @@ public class ArtServiceUnitTest {
         artRecord.setLocationId("Shreveport, LA");
         artRecord.setType("oil");
         artRecord.setTimeStamp("09/08/1994");
+        artRecord.setPrice("1000.00");
 
         ArtRecord artRecord1 = new ArtRecord();
         artRecord1.setArtId("randomArt1");
@@ -199,7 +200,7 @@ public class ArtServiceUnitTest {
         artRecord1.setLocationId("Shreveport, LA");
         artRecord1.setType("acrylic");
         artRecord1.setTimeStamp("09/21/2022");
-        artRecord1.setPrice(1000.00);
+        artRecord1.setPrice("1000.00");
 
         List<ArtRecord> artRecordList = new ArrayList<>();
         artRecordList.add(artRecord);
