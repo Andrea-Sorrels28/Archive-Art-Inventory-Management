@@ -33,7 +33,7 @@ public class ArtUpdateRequest {
     LocalDate timeStamp;
 
     @JsonProperty("price")
-    Double price;
+    String price;
 
     public String getArtId() {
         return artId;
@@ -91,11 +91,11 @@ public class ArtUpdateRequest {
         this.timeStamp = timeStamp;
     }
 
-    public Double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

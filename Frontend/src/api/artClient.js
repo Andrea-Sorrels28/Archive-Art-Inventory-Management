@@ -13,7 +13,7 @@ export default class ArtClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAllArt', 'getArtByArtId', 'addArt'];
+        const methodsToBind = ['clientLoaded', 'getAllArt', 'getArtByArtId', 'addArt', 'deletedById'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -37,7 +37,7 @@ export default class ArtClient extends BaseClass {
      */
     async getAllArt(errorCallback) {
         try {
-            const response = await this.client.get(`/Art`);
+            const response = await this.client.get(`/Art/all`);
             return response.data;
         } catch(error) {
             this.handleError("getAllArt", error, errorCallback);
@@ -67,7 +67,7 @@ export default class ArtClient extends BaseClass {
                 "type" : type,
                 "humiditySensitive" : Boolean(humiditySensitive),
                 "locationId" : locationId,
-                "price" : parseFloat(price),
+                "price" : parseFloat(price).toFixed(2),
             });
             return response.data;
         } catch (error) {

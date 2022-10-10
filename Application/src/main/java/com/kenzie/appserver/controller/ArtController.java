@@ -52,7 +52,7 @@ public class ArtController {
         return ResponseEntity.created(URI.create("/Art/" + response.getArtId())).body(response);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<ArtResponse>> getAllArt() {
         List<Art> artWork = artService.findAllArt();
         if (artWork == null || artWork.isEmpty()) {
@@ -100,6 +100,7 @@ public class ArtController {
         response.setType(art.getType());
         response.setHumiditySensitive(art.isHumiditySensitive());
         response.setTimeStamp(art.getTimeStamp());
+        response.setPrice(art.getPrice());
 
         return response;
     }

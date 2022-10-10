@@ -49,14 +49,14 @@ class ArtControllerTest {
         String type = mockNeat.strings().valStr();
         boolean humiditySensitive = true;
         String timeStamp = LocalDate.now().toString();
-        Double price = 10000.0;
+        String price = "10000.0";
 
 
         Art art = new Art(artId, name, artistName, locationId, type, humiditySensitive, timeStamp, price);
         Art persistedArt = artService.addNewArt(art);
 
         // WHEN
-        mvc.perform(get("/art/{artId}", persistedArt.getArtId())
+        mvc.perform(get("/Art/{artId}", persistedArt.getArtId())
                         .accept(MediaType.APPLICATION_JSON))
                 // THEN
                 .andExpect(jsonPath("artId")
@@ -73,6 +73,8 @@ class ArtControllerTest {
                         .value(is(humiditySensitive)))
                 .andExpect(jsonPath("timeStamp")
                         .value(is(timeStamp)))
+                .andExpect(jsonPath("price")
+                        .value(is(price)))
                 .andExpect(status().isOk());
     }
 
@@ -81,7 +83,7 @@ class ArtControllerTest {
         // GIVEN
         String artId = UUID.randomUUID().toString();
         // WHEN
-        mvc.perform(get("/art/{artId}", artId)
+        mvc.perform(get("/Art/{artId}", artId)
                         .accept(MediaType.APPLICATION_JSON))
                 // THEN
                 .andExpect(status().isNotFound());
@@ -96,6 +98,7 @@ class ArtControllerTest {
         String type = mockNeat.strings().valStr();
         boolean humiditySensitive = true;
         String timeStamp = LocalDate.now().toString();
+        String price = "1000.00";
 
         ArtCreateRequest artCreateRequest = new ArtCreateRequest();
         artCreateRequest.setName(name);
@@ -103,12 +106,12 @@ class ArtControllerTest {
         artCreateRequest.setLocationId(locationId);
         artCreateRequest.setType(type);
         artCreateRequest.setHumiditySensitive(humiditySensitive);
-        artCreateRequest.setTimeStamp(LocalDate.parse(timeStamp));
+        artCreateRequest.setPrice(price);
 
         mapper.registerModule(new JavaTimeModule());
 
         // WHEN
-        mvc.perform(post("/art")
+        mvc.perform(post("/Art")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(artCreateRequest)))
@@ -127,6 +130,8 @@ class ArtControllerTest {
                         .value(is(humiditySensitive)))
                 .andExpect(jsonPath("timeStamp")
                         .value(is(timeStamp)))
+                .andExpect(jsonPath("price")
+                        .value(is(price)))
                 .andExpect(status().isCreated());
     }
 
@@ -140,7 +145,7 @@ class ArtControllerTest {
         String type = mockNeat.strings().valStr();
         boolean humiditySensitive = true;
         String timeStamp = LocalDate.now().toString();
-        Double price = 15000.0;
+        String price = "15000.0";
 
         Art art = new Art(artId, name, artistName, locationId, type, humiditySensitive, timeStamp, price);
         artService.addNewArt(art);
@@ -156,11 +161,12 @@ class ArtControllerTest {
         artUpdateRequest.setType(type);
         artUpdateRequest.setHumiditySensitive(humiditySensitive);
         artUpdateRequest.setTimeStamp(LocalDate.parse(timeStamp));
+        artUpdateRequest.setPrice(price);
 
         mapper.registerModule(new JavaTimeModule());
 
         // WHEN
-        mvc.perform(put("/art")
+        mvc.perform(put("/Art")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(artUpdateRequest)))
@@ -179,6 +185,8 @@ class ArtControllerTest {
                         .value(is(humiditySensitive)))
                 .andExpect(jsonPath("timeStamp")
                         .value(is(timeStamp)))
+                .andExpect(jsonPath("price")
+                        .value(is(price)))
                 .andExpect(status().isOk());
     }
 
@@ -192,13 +200,13 @@ class ArtControllerTest {
         String type = mockNeat.strings().valStr();
         boolean humiditySensitive = true;
         String timeStamp = LocalDate.now().toString();
-        Double price = 20000.0;
+        String price = "20000.0";
 
         Art art = new Art(artId, name, artistName, locationId, type, humiditySensitive, timeStamp, price);
         Art persistedArt = artService.addNewArt(art);
 
         // WHEN
-        mvc.perform(delete("/art/{artId}", persistedArt.getArtId())
+        mvc.perform(delete("/Art/{artId}", persistedArt.getArtId())
                         .accept(MediaType.APPLICATION_JSON))
                 // THEN
                 .andExpect(status().isNoContent());

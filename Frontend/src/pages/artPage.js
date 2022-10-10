@@ -33,7 +33,7 @@ class ArtPage extends BaseClass {
         let resultAreaArt = document.getElementById("result-info");
 
         const art = this.dataStore.get("Art");
-        const allArt = this.dataStore.get("allArt");
+        const allArt = this.dataStore.get("all");
 
         if(art) {
             resultAreaArt.innerHTML = `
@@ -46,7 +46,7 @@ class ArtPage extends BaseClass {
                     <div>Price: ${art.price}</div>
          `
         } else if (allArt) {
-            var myHtml = "<ul>";
+            let myHtml = "<ul>";
 
             for (let unit of allArt) {
                 myHtml += `
@@ -57,7 +57,7 @@ class ArtPage extends BaseClass {
                     <div>Humidity Sensitive: ${unit.humiditySensitive}</div>
                     <div>Location ID: ${unit.locationId}</div>
                     <div>Price: ${unit.price}</div>
-                    
+              
                     `;
             }
             myHtml += "</ul>";
@@ -65,7 +65,6 @@ class ArtPage extends BaseClass {
         } else {
             resultAreaArt.innerHTML = "No Art!";
         }
-        document.getElementById("art-list").innerHTML = resultAreaArt.innerHTML;
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
@@ -110,13 +109,13 @@ class ArtPage extends BaseClass {
     async onGetAllArt(event) {
         event.preventDefault();
 
-        let result = await this.client.getAll(this.errorHandler);
-        this.dataStore.set("allArt", result);
+        let result = await this.client.getAllArt(this.errorHandler);
+        this.dataStore.set("all", result);
     }
 
     async onRemove(event) {
         event.preventDefault();
-        let id = document.getElementById("Art").value;
+        let id = document.getElementById("remove-by-id").value;
         let result = await this.client.deletedById(id, this.errorHandler);
         if (result) {
             this.showMessage(`Successfully deleted ${result.artId}!`)

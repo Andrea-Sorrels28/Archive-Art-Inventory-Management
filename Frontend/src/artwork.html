@@ -39,7 +39,7 @@
         </p>
         <p class="form-field">
             <label>What is the value?</label>
-            <input type="text" required class="validated-field" id="price" placeholder="price">
+            <input type="number" step="0.01" required class="validated-field" id="price" placeholder="price">
         </p>
         <button type="submit" id="add-art">Add</button>
     </form>
@@ -61,8 +61,12 @@
     </form>
 </div>
 <div class="card">
-    <h2>Remove art</h2>
+    <h2>Remove art by ID</h2>
     <form class="card-content" id="remove-art-form">
+        <p class="form-field">
+            <label>What is the art ID?</label>
+            <input type="text" required class="validated-field" id="remove-by-id" placeholder="art ID..." autofocus>
+        </p>
         <button type="submit" id="remove-art">Remove</button>
     </form>
 </div>
